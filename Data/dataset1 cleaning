@@ -1,0 +1,96 @@
+#cleaning the dataset mar_mg_aa_cwh from eurostat
+
+#This cleaning procedure is to filter data from 2014 to 2024 since there is no data for 2025 and 2026
+#The only thing missing is filtering the desired countries (PT, IT, NL)
+  
+import eurostat
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+class EuroStatExplorer:
+    """Explore, retrieve, and visualize Eurostat data."""
+
+    def __init__(self):
+        """Load the Eurostat dataset catalogue."""
+        self.toc_df = eurostat.get_toc_df()
+        self.raw_data = None
+
+    def search_dataset(self, keyword):
+        """Search for datasets matching a keyword."""
+        return eurostat.subset_toc_df(self.toc_df, keyword)
+
+    def get_parameters(self, dataset_code):
+        """Retrieve the dimensions of a dataset."""
+        return eurostat.get_pars(dataset_code)
+
+    def load_dataset(self, dataset_code):
+        """Retrieve a dataset from Eurostat."""
+        self.raw_data = eurostat.get_data_df(dataset_code)
+        return self.raw_data
+
+    def inspect_dataset(self):
+        """Display basic information about loaded data."""
+        if self.raw_data is None:
+            raise ValueError("Load a dataset before inspecting it.")
+
+        print("Shape:", self.raw_data.shape)
+        print("Columns:", self.raw_data.columns.tolist())
+        print("Data types:")
+        print(self.raw_data.dtypes)
+        print("First observations:")
+        print(self.raw_data.head())
+
+    def plot_line(self, data, title, xlabel, ylabel):
+        """Create a line chart from a prepared DataFrame."""
+        ax = data.plot(kind="line", marker="o", figsize=(10, 5))
+        ax.set_title(title)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        plt.tight_layout()
+        plt.show()
+
+    def plot_bar(self, data, x, y, title, xlabel, ylabel):
+        """Create a bar chart from a prepared DataFrame."""
+        plt.figure(figsize=(10, 5))
+        sns.barplot(data=data, x=x, y=y)
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+
+    def plot_scatter(self, data, x, y, title, xlabel, ylabel):
+        """Create a scatterplot from a prepared DataFrame."""
+        plt.figure(figsize=(8, 5))
+        sns.scatterplot(data=data, x=x, y=y)
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.tight_layout()
+        plt.show()
+
+    def plot_histogram(self, data, column, title, xlabel):
+        """Create a histogram of a numerical variable."""
+        values = pd.to_numeric(data[column], errors="coerce").dropna()
+        plt.figure(figsize=(8, 5))
+        sns.histplot(values, bins=15, kde=True)
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel("Frequency")
+        plt.tight_layout()
+        plt.show()
+
+es = EuroStatExplorer()
+
+es.get_parameters("mar_mg_aa_cwh")
+dataset1 =es.load_dataset("mar_mg_aa_cwh")
+es.inspect_dataset()
+
+transposed_dataset1 = dataset1.T
+
+dataset1_pop = transposed_dataset1
+dataset1_df = transposed_dataset1.iloc[20:31].copy()
+dataset1_df.columns = transposed_dataset1.iloc[2].tolist()
+print(dataset1_df)          
