@@ -2,7 +2,8 @@
 
 #This cleaning procedure is to filter data from 2014 to 2024 since there is no data for 2025 and 2026
 #The only thing missing is filtering the desired countries (PT, IT, NL)
-  
+#All library's are imported but not all used
+
 import eurostat
 import pandas as pd
 import matplotlib.pyplot as plt
