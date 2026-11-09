@@ -3,3 +3,5 @@ All datasets that are going to be used in the project to answer questions, make 
 mar_mg_aa_cwh - Country level - gross weight of goods handled in all ports
 
 mar_go_aa -  Gross weight of goods handled in all ports by direction - annual data
+
+mar_sg_am_cw - Short sea shipping - country level - gross weight of goods transported to/from main ports
