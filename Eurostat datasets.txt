@@ -1,0 +1,21 @@
+﻿All datasets that are going to be used in the project to answer questions, make charts and visualizations
+
+
+mar_mg_aa_cwh - Country level - gross weight of goods handled in all ports
+
+
+nama_10_a64 - Country level - Gross value added and income by detailed industry 
+  This dataset measures the economic details in all industries. We will use the Water transport(H50) and Warehousing and support activities for transportation(H52) to investigate the maritime and port economy. Together they show how much income shipping and port-related businesses generate in each country. 
+
+
+H50 water transport: sea, coastal and inland water transport of freight and passengers.
+H52 warehousing and support activities for transportation: storage, cargo handling and port, terminal and other transport support services.
+
+
+
+
+mar_go_aa -  Gross weight of goods handled in all ports by direction - annual data
+              inwards vs outwards, plus individual ports if you want them
+
+
+mar_sg_am_cw - Short sea shipping - country level - gross weight of goods transported to/from main ports
